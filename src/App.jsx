@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import './App.css'
 
 function App() {
   const [a, setA] = useState(null)
@@ -6,7 +7,7 @@ function App() {
   const [result, setResult] = useState(0)
 
   return (
-    <div>
+    <div className="container">
       <Header/>
       <Numbers a={a} setA={setA} b={b} setB={setB}/>
       <Math a={a} b={b} setA={setA} setB={setB} setResult={setResult}/>
@@ -16,14 +17,14 @@ function App() {
 }
 
 function Header(){
-  return <h1>calculator</h1>
+  return <h1>Calculator</h1>
 }
 
 function Numbers({a, b, setA, setB}){
   return(
     <div>
-      <input type="number" value={a} onChange={(e) => setA(Number(e.target.value))}/>
-      <input type="number" value={b} onChange={(e) => setB(Number(e.target.value))}/>
+      <input placeholder='first number' type="number" value={a} onChange={(e) => setA(Number(e.target.value))}/> 
+      <input placeholder='second number' type="number" value={b} onChange={(e) => setB(Number(e.target.value))}/>
     </div>
   )
 }
@@ -39,7 +40,12 @@ function Math({a, b, setA, setB, setResult}){
     setResult(a * b)
   }
   function Bagi(){
-    setResult(a / b)
+    if (b !== 0) {
+      setResult(a / b)
+    } else {
+      alert("Division by zero is not allowed!")
+      setResult(0)
+    }
   }
   function Clear(){
     setA(0)
@@ -48,12 +54,12 @@ function Math({a, b, setA, setB, setResult}){
   }
 
   return(
-    <div>
-      <button onClick={Tambah}>tambah</button>
-      <button onClick={Kurang}>kurang</button>
-      <button onClick={Kali}>kali</button>
-      <button onClick={Bagi}>bagi</button>
-      <button onClick={Clear}>clear</button>
+    <div className='margin'>
+      <button onClick={Tambah}>+</button>
+      <button onClick={Kurang}>-</button>
+      <button onClick={Kali}>*</button>
+      <button onClick={Bagi}>/</button>
+      <button className="clear" onClick={Clear}>C</button>
     </div>
   )
 }
